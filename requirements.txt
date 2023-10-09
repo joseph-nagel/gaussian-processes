@@ -1,0 +1,6 @@
+numpy
+gpytorch
+botorch
+matplotlib
+notebook
+
