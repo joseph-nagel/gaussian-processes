@@ -3,17 +3,18 @@ Kernel functions.
 
 Summary
 -------
-Some elementary kernel functions are implemented.
+Some elementary kernel functions are provided in this module.
 They allow for constructing covariance matrices.
-Note that the kernels are simply provided for convenience,
-but they do not establish custom kernels for gpytorch.
+Note that the implementations serve didactic purposes only.
 
 '''
+
+from abc import ABCMeta, abstractmethod
 
 import torch
 
 
-class IsotropicKernel():
+class IsotropicKernel(metaclass=ABCMeta):
     '''Isotropic kernel base class.'''
 
     def distance(self, x1, x2=None, p=2):
@@ -39,31 +40,38 @@ class IsotropicKernel():
 
         return dist
 
+    @abstractmethod
+    def kernel(self, dist):
+        '''Evaluate isotropic kernel.'''
+        raise NotImplementedError
+
+    def __call__(self, x1, x2=None):
+        '''Compute covariance matrix.'''
+        dist = self.distance(x1, x2)
+        cov = self.kernel(dist)
+        return cov
+
 
 class SquaredExponential(IsotropicKernel):
     '''Squared exponential cov. function.'''
 
-    def __init__(self, sigma=1, tau=1):
+    def __init__(self, sigma=1, length=1):
         self.sigma = abs(sigma)
-        self.tau = abs(tau)
+        self.length = abs(length)
 
-    def __call__(self, x1, x2=None):
-        '''Compute covariances.'''
-        dist = self.distance(x1, x2, p=2)
-        cov = self.sigma**2 * torch.exp(-0.5 * dist**2 / self.tau**2)
-        return cov
+    def kernel(self, dist):
+        '''Evaluate squared exp. kernel.'''
+        return self.sigma**2 * torch.exp(-0.5 * dist**2 / self.length**2)
 
 
 class AbsoluteExponential(IsotropicKernel):
     '''Absolute exponential cov. function.'''
 
-    def __init__(self, sigma=1, tau=1):
+    def __init__(self, sigma=1, length=1):
         self.sigma = abs(sigma)
-        self.tau = abs(tau)
+        self.length = abs(length)
 
-    def __call__(self, x1, x2=None):
-        '''Compute covariances.'''
-        dist = self.distance(x1, x2, p=1)
-        cov = self.sigma**2 * torch.exp(-dist / self.tau)
-        return cov
+    def kernel(self, dist):
+        '''Evaluate absolute exp. kernel.'''
+        return self.sigma**2 * torch.exp(-torch.abs(dist) / self.length)
 
