@@ -4,7 +4,7 @@ Modules.
 Summary
 -------
 A simple gpytorch module for exact inference is implemented.
-It merely equips the correspoonding base class with two modules
+It merely equips the corresponding base class with two modules
 computing the mean value and covariance matrix of the GP.
 
 '''
