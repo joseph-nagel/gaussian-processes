@@ -1,5 +1,7 @@
 # Gaussian process mini project
 
+![An example of Gaussian process regression](figs/predictions.svg)
+
 This repo just contains some random explorations of Gaussian processes (GPs).
 For the moment, the mini project only contains a demonstration of GP regression.
 It is planned though to address Bayesian optimization in the future.
