@@ -1,6 +1,6 @@
 # Gaussian process mini project
 
-![An example of Gaussian process regression](assets/predictions.svg)
+![An example of Gaussian process regression](assets/predictions.svg "Gaussian process regression")
 
 This repo just contains some random explorations of Gaussian processes (GPs).
 For the moment, the mini project only contains a demonstration of GP regression.
