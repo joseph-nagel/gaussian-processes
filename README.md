@@ -6,10 +6,16 @@ This repo just contains some random explorations of Gaussian processes (GPs).
 For the moment, the mini project only contains a demonstration of GP regression.
 It is planned though to address Bayesian optimization in the future.
 
-## Overview
+A number of illustrative notebooks are provided.
+They contain a short introduction to GPs in general and an example of GP regression.
+Moreover, the Karhunen-Loève expansion is discussed despite the fact
+that this representation applies to a wider class of stochastic processes.
 
-A short introduction to GPs in general can be found [here](notebooks/intro.ipynb).
-[The notebook](notebooks/kl_expansion.ipynb) discusses the Karhunen-Loève expansion,
-despite the fact that this representation applies to a wider class of stochastic processes.
-An example of GP regression is provided in [another notebook](notebooks/gp_regression.ipynb).
+## Notebooks
+
+- [Introduction](notebooks/intro.ipynb)
+
+- [GP regression](notebooks/gp_regression.ipynb)
+
+- [KL expansion](notebooks/kl_expansion.ipynb)
 
