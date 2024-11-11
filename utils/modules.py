@@ -15,12 +15,14 @@ import gpytorch
 class ExactInferenceGP(gpytorch.models.ExactGP):
     '''GP with zero mean and squared exp. covariance.'''
 
-    def __init__(self,
-                 x_train=None,
-                 y_train=None,
-                 prior_length=None,
-                 prior_var=None,
-                 noise_var=None):
+    def __init__(
+        self,
+        x_train=None,
+        y_train=None,
+        prior_length=None,
+        prior_var=None,
+        noise_var=None
+    ):
 
         # initialize likelihood
         likelihood = gpytorch.likelihoods.GaussianLikelihood()

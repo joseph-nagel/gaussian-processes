@@ -55,7 +55,7 @@ class IsotropicKernel(metaclass=ABCMeta):
 class SquaredExponential(IsotropicKernel):
     '''Squared exponential cov. function.'''
 
-    def __init__(self, sigma=1, length=1):
+    def __init__(self, sigma=1., length=1.):
         self.sigma = abs(sigma)
         self.length = abs(length)
 
@@ -67,7 +67,7 @@ class SquaredExponential(IsotropicKernel):
 class AbsoluteExponential(IsotropicKernel):
     '''Absolute exponential cov. function.'''
 
-    def __init__(self, sigma=1, length=1):
+    def __init__(self, sigma=1., length=1.):
         self.sigma = abs(sigma)
         self.length = abs(length)
 
