@@ -17,7 +17,12 @@ import torch
 class IsotropicKernel(metaclass=ABCMeta):
     '''Isotropic kernel base class.'''
 
-    def distance(self, x1, x2=None, p=2):
+    def distance(
+        self,
+        x1: torch.Tensor,
+        x2: torch.Tensor | None = None,
+        p: int = 2
+    ) -> torch.Tensor:
         '''Compute pairwise distances.'''
 
         x1 = torch.as_tensor(x1)
@@ -45,21 +50,32 @@ class IsotropicKernel(metaclass=ABCMeta):
         '''Evaluate isotropic kernel.'''
         raise NotImplementedError
 
-    def __call__(self, x1, x2=None):
+    def __call__(
+        self,
+        x1: torch.Tensor,
+        x2: torch.Tensor | None = None
+    ) -> torch.Tensor:
         '''Compute covariance matrix.'''
+
         dist = self.distance(x1, x2)
         cov = self.kernel(dist)
+
         return cov
 
 
 class SquaredExponential(IsotropicKernel):
     '''Squared exponential cov. function.'''
 
-    def __init__(self, sigma=1., length=1.):
+    def __init__(
+        self,
+        sigma: float = 1.,
+        length: float = 1.
+    ) -> None:
+
         self.sigma = abs(sigma)
         self.length = abs(length)
 
-    def kernel(self, dist):
+    def kernel(self, dist: torch.Tensor) -> torch.Tensor:
         '''Evaluate squared exp. kernel.'''
         return self.sigma**2 * torch.exp(-0.5 * dist**2 / self.length**2)
 
@@ -67,11 +83,16 @@ class SquaredExponential(IsotropicKernel):
 class AbsoluteExponential(IsotropicKernel):
     '''Absolute exponential cov. function.'''
 
-    def __init__(self, sigma=1., length=1.):
+    def __init__(
+        self,
+        sigma: float = 1.,
+        length: float = 1.
+    ) -> None:
+
         self.sigma = abs(sigma)
         self.length = abs(length)
 
-    def kernel(self, dist):
+    def kernel(self, dist: torch.Tensor) -> torch.Tensor:
         '''Evaluate absolute exp. kernel.'''
         return self.sigma**2 * torch.exp(-torch.abs(dist) / self.length)
 

@@ -5,11 +5,15 @@ Summary
 -------
 A simple gpytorch module for exact inference is implemented.
 It merely equips the corresponding base class with two modules
-computing the mean value and covariance matrix of the GP.
+computing the mean value and covariance matrix of the GP, respectively.
 
 '''
 
+from collections.abc import Sequence
+
+import torch
 import gpytorch
+from gpytorch.distributions import MultivariateNormal
 
 
 class ExactInferenceGP(gpytorch.models.ExactGP):
@@ -17,12 +21,12 @@ class ExactInferenceGP(gpytorch.models.ExactGP):
 
     def __init__(
         self,
-        x_train=None,
-        y_train=None,
-        prior_length=None,
-        prior_var=None,
-        noise_var=None
-    ):
+        x_train: torch.Tensor | Sequence[torch.Tensor] | None = None,
+        y_train: torch.Tensor | Sequence[torch.Tensor] | None = None,
+        prior_length: float | torch.Tensor | None = None,
+        prior_var: float | torch.Tensor | None = None,
+        noise_var: float | torch.Tensor | None = None,
+    ) -> None:
 
         # initialize likelihood
         likelihood = gpytorch.likelihoods.GaussianLikelihood()
@@ -49,22 +53,22 @@ class ExactInferenceGP(gpytorch.models.ExactGP):
             self.likelihood.noise = noise_var
 
     @property
-    def prior_length(self):
+    def prior_length(self) -> torch.Tensor:
         return self.cov_module.base_kernel.lengthscale.detach()
 
     @property
-    def prior_var(self):
+    def prior_var(self) -> torch.Tensor:
         return self.cov_module.outputscale.detach()
 
     @property
-    def noise_var(self):
+    def noise_var(self) -> torch.Tensor:
         return self.likelihood.noise.detach()
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> MultivariateNormal:
         '''Return GP prior distribution.'''
+
         mean = self.mean_module(x)
         cov = self.cov_module(x)
 
-        mvn = gpytorch.distributions.MultivariateNormal(mean, cov)
-        return mvn
+        return MultivariateNormal(mean, cov)
 
