@@ -31,7 +31,7 @@ class IsotropicKernel(metaclass=ABCMeta):
         device = x1.device
 
         if x2 is None:
-            x2 = torch.tensor(0., dtype=dtype, device=device)
+            x2 = torch.tensor(0.0, dtype=dtype, device=device)
         else:
             x2 = torch.as_tensor(x2)
 
@@ -46,7 +46,7 @@ class IsotropicKernel(metaclass=ABCMeta):
         return dist
 
     @abstractmethod
-    def kernel(self, dist):
+    def kernel(self, dist: torch.Tensor) -> torch.Tensor:
         '''Evaluate isotropic kernel.'''
         raise NotImplementedError
 
@@ -68,8 +68,8 @@ class SquaredExponential(IsotropicKernel):
 
     def __init__(
         self,
-        sigma: float = 1.,
-        length: float = 1.
+        sigma: float = 1.0,
+        length: float = 1.0
     ) -> None:
 
         self.sigma = abs(sigma)
@@ -85,8 +85,8 @@ class AbsoluteExponential(IsotropicKernel):
 
     def __init__(
         self,
-        sigma: float = 1.,
-        length: float = 1.
+        sigma: float = 1.0,
+        length: float = 1.0
     ) -> None:
 
         self.sigma = abs(sigma)
