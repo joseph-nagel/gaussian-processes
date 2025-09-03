@@ -7,4 +7,3 @@ from .kernels import (
 )
 
 from .modules import ExactInferenceGP
-

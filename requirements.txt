@@ -2,4 +2,3 @@ numpy
 gpytorch
 matplotlib
 notebook
-

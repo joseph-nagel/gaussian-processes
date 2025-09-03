@@ -71,4 +71,3 @@ class ExactInferenceGP(gpytorch.models.ExactGP):
         cov = self.cov_module(x)
 
         return MultivariateNormal(mean, cov)
-

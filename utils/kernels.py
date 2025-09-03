@@ -95,4 +95,3 @@ class AbsoluteExponential(IsotropicKernel):
     def kernel(self, dist: torch.Tensor) -> torch.Tensor:
         '''Evaluate absolute exp. kernel.'''
         return self.sigma**2 * torch.exp(-torch.abs(dist) / self.length)
-

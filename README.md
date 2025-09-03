@@ -15,8 +15,5 @@ that this representation applies to a wider class of stochastic processes.
 ## Notebooks
 
 - [Introduction](notebooks/intro.ipynb)
-
 - [GP regression](notebooks/gp_regression.ipynb)
-
 - [KL expansion](notebooks/kl_expansion.ipynb)
-
