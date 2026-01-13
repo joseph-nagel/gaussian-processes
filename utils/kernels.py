@@ -24,7 +24,6 @@ class IsotropicKernel(metaclass=ABCMeta):
         p: int = 2
     ) -> torch.Tensor:
         '''Compute pairwise distances.'''
-
         x1 = torch.as_tensor(x1)
 
         dtype = x1.dtype
@@ -48,7 +47,7 @@ class IsotropicKernel(metaclass=ABCMeta):
     @abstractmethod
     def kernel(self, dist: torch.Tensor) -> torch.Tensor:
         '''Evaluate isotropic kernel.'''
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def __call__(
         self,
@@ -56,10 +55,8 @@ class IsotropicKernel(metaclass=ABCMeta):
         x2: torch.Tensor | None = None
     ) -> torch.Tensor:
         '''Compute covariance matrix.'''
-
         dist = self.distance(x1, x2)
         cov = self.kernel(dist)
-
         return cov
 
 
@@ -70,8 +67,7 @@ class SquaredExponential(IsotropicKernel):
         self,
         sigma: float = 1.0,
         length: float = 1.0
-    ) -> None:
-
+    ):
         self.sigma = abs(sigma)
         self.length = abs(length)
 
@@ -87,8 +83,7 @@ class AbsoluteExponential(IsotropicKernel):
         self,
         sigma: float = 1.0,
         length: float = 1.0
-    ) -> None:
-
+    ):
         self.sigma = abs(sigma)
         self.length = abs(length)
 

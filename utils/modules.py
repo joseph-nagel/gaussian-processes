@@ -25,8 +25,8 @@ class ExactInferenceGP(gpytorch.models.ExactGP):
         y_train: torch.Tensor | Sequence[torch.Tensor] | None = None,
         prior_length: float | torch.Tensor | None = None,
         prior_var: float | torch.Tensor | None = None,
-        noise_var: float | torch.Tensor | None = None,
-    ) -> None:
+        noise_var: float | torch.Tensor | None = None
+    ):
 
         # initialize likelihood
         likelihood = gpytorch.likelihoods.GaussianLikelihood()
@@ -66,8 +66,6 @@ class ExactInferenceGP(gpytorch.models.ExactGP):
 
     def forward(self, x: torch.Tensor) -> MultivariateNormal:
         '''Return GP prior distribution.'''
-
         mean = self.mean_module(x)
         cov = self.cov_module(x)
-
         return MultivariateNormal(mean, cov)
