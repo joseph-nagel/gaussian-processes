@@ -5,5 +5,4 @@ from .kernels import (
     SquaredExponential,
     AbsoluteExponential
 )
-
 from .modules import ExactInferenceGP
